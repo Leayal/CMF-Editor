@@ -37,9 +37,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CMF-Sharp">
-      <HintPath>..\..\Closers-Tools\CMF-Sharp\bin\Debug\CMF-Sharp.dll</HintPath>
-    </Reference>
     <Reference Include="nQuant.Core, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\nQuant.1.0.3\lib\net40\nQuant.Core.dll</HintPath>
       <Private>True</Private>
@@ -116,6 +113,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Closers-CMF\CMF-Sharp\CMF-Sharp.csproj">
+      <Project>{31b124b1-29e4-41e5-a10c-98d7e2985400}</Project>
+      <Name>CMF-Sharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
