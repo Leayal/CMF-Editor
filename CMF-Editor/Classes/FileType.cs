@@ -77,39 +77,5 @@ namespace CMF_Editor.Classes
         public static BitmapImage GetIconByFilename(string filename) => GetIconByExtension(Path.GetExtension(filename));
 
         public static BitmapImage GetIconByExtension(string extension) => DetermineByExtension(extension).Icon;
-
-        static void asdasasd()
-        {
-            Dictionary<string, string> cacheList = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            string asd;
-            string path = @"E:\Entertainment\NexonGames\Closers\DAT";
-            foreach (string dir in System.IO.Directory.EnumerateDirectories(path, "*", System.IO.SearchOption.TopDirectoryOnly))
-                foreach (string file in System.IO.Directory.EnumerateFiles(dir, "*", System.IO.SearchOption.AllDirectories))
-                {
-                    try
-                    {
-                        using (Leayal.Closers.CMF.CMFArchive ar = Leayal.Closers.CMF.CMFArchive.Read(file))
-                        {
-                            foreach (Leayal.Closers.CMF.CMFEntry entry in ar.Entries)
-                            {
-                                asd = System.IO.Path.GetExtension(entry.FileName);
-                                if (!cacheList.ContainsKey(asd))
-                                    cacheList.Add(asd, entry.FileName);
-                            }
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            if (cacheList.Count > 0)
-                using (System.IO.StreamWriter sr = System.IO.File.CreateText("total exts.txt"))
-                {
-                    foreach (var item in cacheList)
-                        sr.WriteLine($"{item.Key}: {item.Value}");
-                    sr.Flush();
-                }
-        }
     }
 }
