@@ -42,35 +42,47 @@ namespace nQuant
             try
             {
                 targetData = result.LockBits(Rectangle.FromLTRB(0, 0, result.Width, result.Height), ImageLockMode.WriteOnly, result.PixelFormat);
-                const byte targetBitDepth = 8;
-                var targetByteLength = targetData.Stride < 0 ? -targetData.Stride : targetData.Stride;
-                var targetByteCount = Math.Max(1, targetBitDepth >> 3);
-                var targetSize = targetByteLength * result.Height;
-                var targetOffset = 0;
-                var targetBuffer = new byte[targetSize];
-                var targetValue = new byte[targetByteCount];
-                var pixelIndex = 0;
-
-                for (var y = 0; y < result.Height; y++)
+                
+                unsafe
                 {
-                    var targetIndex = 0;
-                    for (var x = 0; x < result.Width; x++)
+                    byte* ptr = (byte*)targetData.Scan0.ToPointer();
+                    const byte targetBitDepth = 8;
+                    var targetByteLength = targetData.Stride < 0 ? -targetData.Stride : targetData.Stride;
+                    var targetByteCount = Math.Max(1, targetBitDepth >> 3);
+                    var targetSize = targetByteLength * result.Height;
+                    var targetOffset = 0;
+                    // var targetBuffer = new byte[targetSize];
+                    var targetValue = new byte[targetByteCount];
+                    var pixelIndex = 0;
+
+                    for (var y = 0; y < result.Height; y++)
                     {
-                        var targetIndexOffset = targetIndex >> 3;
-                        targetValue[0] = (byte)(palette.PixelIndex[pixelIndex] == -1 ? palette.Colors.Count - 1 : palette.PixelIndex[pixelIndex]);
-                        pixelIndex++;
+                        var targetIndex = 0;
+                        for (var x = 0; x < result.Width; x++)
+                        {
+                            var targetIndexOffset = targetIndex >> 3;
+                            targetValue[0] = (byte)(palette.PixelIndex[pixelIndex] == -1 ? palette.Colors.Count - 1 : palette.PixelIndex[pixelIndex]);
+                            pixelIndex++;
 
-                        for (var valueIndex = 0; valueIndex < targetByteCount; valueIndex++)
-                            targetBuffer[targetOffset + valueIndex + targetIndexOffset] = targetValue[valueIndex];
+                            for (var valueIndex = 0; valueIndex < targetByteCount; valueIndex++)
+                                ptr[targetOffset + valueIndex + targetIndexOffset] = targetValue[valueIndex];
 
-                        targetIndex += targetBitDepth;
+                            targetIndex += targetBitDepth;
+                        }
+
+                        targetOffset += targetByteLength;
+                        this.OnProgressChanged(new System.ComponentModel.ProgressChangedEventArgs(Convert.ToInt32((y * huh) / result.Height), nu));
                     }
-
-                    targetOffset += targetByteLength;
-                    this.OnProgressChanged(new System.ComponentModel.ProgressChangedEventArgs(Convert.ToInt32((y * huh) / result.Height), nu));
                 }
 
-                Marshal.Copy(targetBuffer, 0, targetData.Scan0, targetSize);
+                // Marshal.Copy(targetBuffer, 0, targetData.Scan0, targetSize);
+                //unsafe
+                //{
+                //    fixed (void* ptr = targetBuffer)
+                //    {
+                //        targetData.Scan0 = new IntPtr(ptr);
+                //    }
+                //}
             }
             finally
             {
@@ -106,53 +118,58 @@ namespace nQuant
                 var byteLength = data.Stride < 0 ? -data.Stride : data.Stride;
                 var byteCount = Math.Max(1, bitDepth >> 3);
                 var offset = 0;
-                var buffer = new Byte[byteLength * sourceImage.Height];
+                // var buffer = new Byte[byteLength * sourceImage.Height];
                 var value = new Byte[byteCount];
 
-                Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
-               
-                for (int y = 0; y < bitmapHeight; y++)
+                // Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
+
+                unsafe
                 {
-                    var index = 0;
-                    for (int x = 0; x < bitmapWidth; x++)
+                    byte* pointer = (byte*)data.Scan0.ToPointer();
+
+                    for (int y = 0; y < bitmapHeight; y++)
                     {
-                        var indexOffset = index >> 3;
-
-                        for (var valueIndex = 0; valueIndex < byteCount; valueIndex++)
-                            value[valueIndex] = buffer[offset + valueIndex + indexOffset];
-
-                        var indexAlpha = (byte)((value[Alpha] >> 3) + 1);
-                        var indexRed = (byte)((value[Red] >> 3) + 1);
-                        var indexGreen = (byte)((value[Green] >> 3) + 1);
-                        var indexBlue = (byte)((value[Blue] >> 3) + 1);
-
-                        if (value[Alpha] > alphaThreshold)
+                        var index = 0;
+                        for (int x = 0; x < bitmapWidth; x++)
                         {
-                            if (value[Alpha] < 255)
+                            var indexOffset = index >> 3;
+
+                            for (var valueIndex = 0; valueIndex < byteCount; valueIndex++)
+                                value[valueIndex] = pointer[offset + valueIndex + indexOffset];
+
+                            var indexAlpha = (byte)((value[Alpha] >> 3) + 1);
+                            var indexRed = (byte)((value[Red] >> 3) + 1);
+                            var indexGreen = (byte)((value[Green] >> 3) + 1);
+                            var indexBlue = (byte)((value[Blue] >> 3) + 1);
+
+                            if (value[Alpha] > alphaThreshold)
                             {
-                                var alpha = value[Alpha] + (value[Alpha] % alphaFader);
-                                value[Alpha] = (byte)(alpha > 255 ? 255 : alpha);
-                                indexAlpha = (byte)((value[Alpha] >> 3) + 1);
+                                if (value[Alpha] < 255)
+                                {
+                                    var alpha = value[Alpha] + (value[Alpha] % alphaFader);
+                                    value[Alpha] = (byte)(alpha > 255 ? 255 : alpha);
+                                    indexAlpha = (byte)((value[Alpha] >> 3) + 1);
+                                }
+
+                                colorData.Weights[indexAlpha, indexRed, indexGreen, indexBlue]++;
+                                colorData.MomentsRed[indexAlpha, indexRed, indexGreen, indexBlue] += value[Red];
+                                colorData.MomentsGreen[indexAlpha, indexRed, indexGreen, indexBlue] += value[Green];
+                                colorData.MomentsBlue[indexAlpha, indexRed, indexGreen, indexBlue] += value[Blue];
+                                colorData.MomentsAlpha[indexAlpha, indexRed, indexGreen, indexBlue] += value[Alpha];
+                                colorData.Moments[indexAlpha, indexRed, indexGreen, indexBlue] += (value[Alpha] * value[Alpha]) +
+                                                                                                  (value[Red] * value[Red]) +
+                                                                                                  (value[Green] * value[Green]) +
+                                                                                                  (value[Blue] * value[Blue]);
                             }
 
-                            colorData.Weights[indexAlpha, indexRed, indexGreen, indexBlue]++;
-                            colorData.MomentsRed[indexAlpha, indexRed, indexGreen, indexBlue] += value[Red];
-                            colorData.MomentsGreen[indexAlpha, indexRed, indexGreen, indexBlue] += value[Green];
-                            colorData.MomentsBlue[indexAlpha, indexRed, indexGreen, indexBlue] += value[Blue];
-                            colorData.MomentsAlpha[indexAlpha, indexRed, indexGreen, indexBlue] += value[Alpha];
-                            colorData.Moments[indexAlpha, indexRed, indexGreen, indexBlue] += (value[Alpha]*value[Alpha]) +
-                                                                                              (value[Red]*value[Red]) +
-                                                                                              (value[Green]*value[Green]) +
-                                                                                              (value[Blue]*value[Blue]);
+                            colorData.AddPixel(
+                                new Pixel(value[Alpha], value[Red], value[Green], value[Blue]),
+                                BitConverter.ToInt32(new[] { indexAlpha, indexRed, indexGreen, indexBlue }, 0));
+                            index += bitDepth;
                         }
 
-                        colorData.AddPixel(
-                            new Pixel(value[Alpha], value[Red], value[Green], value[Blue]),
-                            BitConverter.ToInt32 (new[] { indexAlpha, indexRed, indexGreen, indexBlue }, 0));
-                        index += bitDepth;
+                        offset += byteLength;
                     }
-
-                    offset += byteLength;
                 }
             }
             finally
