@@ -37,10 +37,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nQuant.Core, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\nQuant.1.0.3\lib\net40\nQuant.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Aero2">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\PresentationFramework.Aero2.dll</HintPath>
@@ -67,6 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\FileType.cs" />
+    <Compile Include="Classes\IWin32Window.cs" />
     <Compile Include="Classes\SortAdorner.cs" />
     <Compile Include="WinForms\FolderBrowseDialogEx.cs" />
     <Compile Include="WinForms\FolderBrowseDialogExSelectChangedEventArgs.cs" />
@@ -109,7 +106,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -120,6 +116,10 @@
     <ProjectReference Include="..\Closers-CMF\CMF-Sharp\CMF-Sharp.csproj">
       <Project>{31b124b1-29e4-41e5-a10c-98d7e2985400}</Project>
       <Name>CMF-Sharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nQuant.Core\nQuant.Core.csproj">
+      <Project>{a59307ea-fcb0-4110-bc42-0417871c24c4}</Project>
+      <Name>nQuant.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

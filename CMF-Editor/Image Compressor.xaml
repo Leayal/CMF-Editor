@@ -5,15 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CMF_Editor"
         mc:Ignorable="d"
-        Title="Image Compressor" Height="300" Width="300" MinHeight="300" MinWidth="300" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
-    <Grid VerticalAlignment="Center">
-        <StackPanel HorizontalAlignment="Center">
-            <Button x:Name="buttonSelect" Content="Select Image" HorizontalAlignment="Left" Margin="90,20,0,0" VerticalAlignment="Top" Width="120" Height="70" Click="buttonSelect_Click"/>
-            <TextBox x:Name="imageLocation" HorizontalAlignment="Left" Height="30" Margin="30,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="imageLocation_TextChanged"/>
-            <Button x:Name="buttonConfirm" Content="Confirm" HorizontalAlignment="Left" Margin="90,5,0,0" VerticalAlignment="Top" Width="120" Height="70" Click="buttonConfirm_Click"/>
-            <Label x:Name="labelStatus" Content="IDLE" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="294" Height="45" FontSize="25" FontWeight="Bold" Foreground="Orange" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        </StackPanel>
-
-
+        Title="Image Compressor" Height="263.636" Width="300" MinHeight="200" MinWidth="200" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid>
+        <TabControl HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TabItem x:Name="tabMainMenu" Visibility="Collapsed">
+                <Grid>
+                    <StackPanel HorizontalAlignment="Center">
+                        <Button x:Name="buttonSelect" Content="Select Image" VerticalAlignment="Top" Width="120" Height="70" Click="buttonSelect_Click"/>
+                        <TextBox x:Name="imageLocation" Height="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="240" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextChanged="imageLocation_TextChanged"/>
+                        <Button x:Name="buttonConfirm" Content="Confirm" VerticalAlignment="Top" Width="120" Height="70" Click="buttonConfirm_Click"/>
+                        <Label x:Name="labelStatus" Content="IDLE" VerticalAlignment="Top" Width="294" Height="45" FontSize="25" FontWeight="Bold" Foreground="Orange" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabProgressBar" Visibility="Collapsed">
+                <Grid>
+                    <StackPanel HorizontalAlignment="Center">
+                        <ProgressBar x:Name="progressBar" Background="#FF1B1B1B" BorderBrush="LightGray" Height="16" Width="240">
+                            <ProgressBar.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF470000"/>
+                                    <GradientStop Color="#FFE60000" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ProgressBar.Foreground>
+                        </ProgressBar>
+                        <Button x:Name="buttonCancel" Content="Cancel" Width="60" Height="24"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 using nQuant;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.ComponentModel;
+using System.IO;
 
 namespace CMF_Editor
 {
@@ -22,16 +24,32 @@ namespace CMF_Editor
     /// </summary>
     public partial class Image_Compressor : Window
     {
+        private BackgroundWorker worker;
         public Image_Compressor()
         {
             InitializeComponent();
+            this.worker = new BackgroundWorker();
+            this.worker.DoWork += Worker_DoWork;
+            this.worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            this.worker.WorkerReportsProgress = false;
+            this.worker.WorkerSupportsCancellation = true;
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void buttonSelect_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog imageSelect = new OpenFileDialog();
             imageSelect.Filter = "Image files (*.png)|*.png";
-            if (imageSelect.ShowDialog() == true)
+            if (imageSelect.ShowDialog(this) == true)
             {
                 imageLocation.Text = imageSelect.FileName;
                 labelStatus.Content = "IDLE";
@@ -51,20 +69,19 @@ namespace CMF_Editor
             imageSave.FileName = "Compressed Image";
             imageSave.DefaultExt = ".png";
             imageSave.Filter = "Image files (*.png)|*.png";
-            String savePath = "";
-            if (imageSave.ShowDialog() == true)
+            if (imageSave.ShowDialog(this) == true)
             {
                 labelStatus.Content = "WORKING";
                 labelStatus.Foreground = new SolidColorBrush(Colors.DarkCyan);
                 try {
-                    savePath = imageSave.FileName;
                     var quantizer = new WuQuantizer();
-                    using (var bitmap = new Bitmap(imageLocation.Text))
+                    using (FileStream fs = new FileStream(imageLocation.Text, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
+                    using (var bitmap = new Bitmap(fs))
+                    using (var quantized = quantizer.QuantizeImage(bitmap))
+                    using (FileStream ofs = new FileStream(imageSave.FileName, FileMode.Create, FileAccess.Write, FileShare.Read, 1024, FileOptions.WriteThrough))
                     {
-                        using (var quantized = quantizer.QuantizeImage(bitmap))
-                        {
-                            quantized.Save(savePath, ImageFormat.Png);
-                        }
+                        quantized.Save(ofs, ImageFormat.Png);
+                        ofs.Flush();
                     }
                     labelStatus.Content = "FINISHED";
                     labelStatus.Foreground = new SolidColorBrush(Colors.Green);
@@ -73,6 +90,7 @@ namespace CMF_Editor
                 {
                     labelStatus.Content = "FAILED";
                     labelStatus.Foreground = new SolidColorBrush(Colors.Red);
+                    MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }         
         }
