@@ -32,13 +32,7 @@ namespace CMF_Editor
             searchType.SelectionChanged += searchType_SelectionChanged;
         }
 
-        private void AppExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.CloseArchive();
-            this.Close();
-        }
-
-        private CMFArchive archive;
+        private CMFFile archive;
 
         private GridViewColumnHeader listViewSortCol = null;
         private SortAdorner listViewSortAdorner = null;
@@ -51,6 +45,13 @@ namespace CMF_Editor
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvFiles.ItemsSource);
             view.Filter = UserFilter;
+        }
+
+        #region "Control EventHandler"
+        private void AppExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.CloseArchive();
+            this.Close();
         }
 
         private void lvFilesColumnHeader_Click(object sender, RoutedEventArgs e)
@@ -87,15 +88,9 @@ namespace CMF_Editor
             if (result.HasValue && result.Value)
             {
                 this.CloseArchive();
-                this.archive = CMFArchive.Read(ofd.FileName);
-                List<File> items = new List<File>(this.archive.FileCount);
-                using (var reader = this.archive.ExtractAllEntries())
-                    while (reader.MoveToNextEntry())
-                        items.Add(new File(reader.Entry));
-
-                lvFiles.ItemsSource = items;
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvFiles.ItemsSource);
-                view.Filter = UserFilter;
+                this.archive = new CMFFile(ofd.FileName);
+                this.archive.Ready += this.Archive_Ready;
+                this.archive.Closed += this.Archive_Closed;
             }
         }
 
@@ -124,32 +119,9 @@ namespace CMF_Editor
             }
         }
 
-        private void CloseArchive()
-        {
-            if (this.archive != null)
-            {
-                this.archive.Dispose();
-                this.archive = null;
-            }
-        }
-
         private void buttonClear_Click(object sender, RoutedEventArgs e)
         {
             textBoxSearch.Clear();
-        }
-
-        private bool UserFilter(object item)
-        {
-            if (String.IsNullOrEmpty(textBoxSearch.Text))
-                return true;
-            else
-            {
-                if (searchType.SelectedIndex == 0) return ((item as File).Name.IndexOf(textBoxSearch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                if (searchType.SelectedIndex == 1) return ((item as File).Size.ToString().IndexOf(textBoxSearch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                if (searchType.SelectedIndex == 2) return ((item as File).Type.IndexOf(textBoxSearch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                return true;
-            }
-                
         }
 
         private void textBoxSearch_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -172,5 +144,48 @@ namespace CMF_Editor
         {
             openImageCompressor();
         }
+#endregion
+
+        #region "Methods"
+        private void CloseArchive()
+        {
+            if (this.archive != null)
+                this.archive.Dispose();
+        }
+
+        private bool UserFilter(object item)
+        {
+            if (String.IsNullOrEmpty(textBoxSearch.Text))
+                return true;
+            else
+            {
+                if (searchType.SelectedIndex == 0) return ((item as File).Name.IndexOf(textBoxSearch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                if (searchType.SelectedIndex == 1) return ((item as File).Size.ToString().IndexOf(textBoxSearch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                if (searchType.SelectedIndex == 2) return ((item as File).Type.IndexOf(textBoxSearch.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                return true;
+            }
+
+        }
+        #endregion
+
+        #region "Class EventHandler"
+        private void Archive_Closed(object sender, EventArgs e)
+        {
+            lvFiles.ItemsSource = null;
+            this.archive = null;
+        }
+
+        private void Archive_Ready(object sender, EventArgs e)
+        {
+            List<File> items = new List<File>(this.archive.FileCount);
+            using (var reader = this.archive.ExtractAllEntries())
+                while (reader.MoveToNextEntry())
+                    items.Add(new File(reader.Entry));
+
+            lvFiles.ItemsSource = items;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvFiles.ItemsSource);
+            view.Filter = UserFilter;
+        }
+        #endregion
     }
 }

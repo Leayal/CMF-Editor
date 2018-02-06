@@ -62,7 +62,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\FileType.cs" />
+    <Compile Include="Classes\CMFFile.cs" />
+    <Compile Include="Classes\File.cs" />
     <Compile Include="Classes\IWin32Window.cs" />
     <Compile Include="Classes\SortAdorner.cs" />
     <Compile Include="WinForms\FolderBrowseDialogEx.cs" />
