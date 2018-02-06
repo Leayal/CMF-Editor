@@ -73,7 +73,8 @@ namespace CMF_Editor
             {
                 labelStatus.Content = "WORKING";
                 labelStatus.Foreground = new SolidColorBrush(Colors.DarkCyan);
-                try {
+                try
+                {
                     var quantizer = new WuQuantizer();
                     using (FileStream fs = new FileStream(imageLocation.Text, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
                     using (var bitmap = new Bitmap(fs))

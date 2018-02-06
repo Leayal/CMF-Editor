@@ -47,11 +47,6 @@ namespace CMF_Editor
         {
             // InitializeComponent();
             List<File> items = new List<File>();
-            items.Add(new File() { Name = "123", Size = 1, Type = "PNG File" });
-            items.Add(new File() { Name = "abc", Size = 654654, Type = "BMP File" });
-            items.Add(new File() { Name = "abc", Size = 2, Type = "Lua File" });
-            items.Add(new File() { Name = "1234qwer", Size = 148862, Type = "3D Model" });
-            items.Add(new File() { Name = "abc456", Size = 99999999, Type = "Music" });
             lvFiles.ItemsSource = items;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvFiles.ItemsSource);
@@ -96,7 +91,7 @@ namespace CMF_Editor
                 List<File> items = new List<File>(this.archive.FileCount);
                 using (var reader = this.archive.ExtractAllEntries())
                     while (reader.MoveToNextEntry())
-                        items.Add(new File() { Name = reader.Entry.FileName, Size = reader.Entry.UnpackedSize });
+                        items.Add(new File(reader.Entry));
 
                 lvFiles.ItemsSource = items;
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvFiles.ItemsSource);
@@ -178,18 +173,4 @@ namespace CMF_Editor
             openImageCompressor();
         }
     }
-
-    public class File
-    {
-        public string Name { get; set; }
-
-        public long Size { get; set; }
-
-        public string Type { get; set; }
-
-        public int Icon { get; set; }
-    }
-
-    
-
 }
