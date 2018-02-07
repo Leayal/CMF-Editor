@@ -66,6 +66,9 @@
     <Compile Include="Classes\File.cs" />
     <Compile Include="Classes\IWin32Window.cs" />
     <Compile Include="Classes\SortAdorner.cs" />
+    <Compile Include="Extraction.xaml.cs">
+      <DependentUpon>Extraction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\FolderBrowseDialogEx.cs" />
     <Compile Include="WinForms\FolderBrowseDialogExSelectChangedEventArgs.cs" />
     <Page Include="CMF Editor.xaml">
@@ -80,6 +83,10 @@
       <DependentUpon>CMF Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Extraction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Image Compressor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

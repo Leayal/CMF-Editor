@@ -94,29 +94,34 @@ namespace CMF_Editor
             }
         }
 
+        public void openExtraction()
+        {
+            Extraction extraction = new Extraction();
+            extraction.Owner = App.Current.MainWindow;
+            extraction.Show();
+        }
+
         private void buttonExtract_Click(object sender, RoutedEventArgs e)
         {
-            if (this.archive == null) return;
-
-            using (Leayal.Forms.FolderBrowseDialogEx folderBrowse = new Leayal.Forms.FolderBrowseDialogEx())
+            openExtraction();
+            if (this.archive == null)
             {
-                folderBrowse.ShowNewFolderButton = true;
-                folderBrowse.ShowTextBox = true;
-                folderBrowse.Description = "Select destination folder";
-                folderBrowse.OKButtonText = "Select";
-                bool? result = folderBrowse.ShowDialog(this);
-                if (result.HasValue && result.Value)
-                {
-                    try
-                    {
-                        this.archive.ExtractAllEntries(folderBrowse.SelectedDirectory);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
+                MessageBox.Show(this, "No CMF archive was opened. Please open a CMF archive to use this operation.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
+            openExtraction();
+            //using (Leayal.Forms.FolderBrowseDialogEx folderBrowse = new Leayal.Forms.FolderBrowseDialogEx())
+            //{
+            //    folderBrowse.ShowNewFolderButton = true;
+            //    folderBrowse.ShowTextBox = true;
+            //    folderBrowse.Description = "Select destination folder";
+            //    folderBrowse.OKButtonText = "Select";
+            //    bool? result = folderBrowse.ShowDialog(this);
+            //    if (result.HasValue && result.Value)
+            //    {
+            //        extractArchive(folderBrowse.SelectedDirectory);
+            //    }
+            //}
         }
 
         private void buttonClear_Click(object sender, RoutedEventArgs e)
@@ -165,6 +170,18 @@ namespace CMF_Editor
                 return true;
             }
 
+        }
+
+        public void extractArchive(string destination)
+        {
+            try
+            {
+                this.archive.ExtractAllEntries(destination);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         #endregion
 
