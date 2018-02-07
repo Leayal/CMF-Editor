@@ -41,8 +41,21 @@ namespace CMF_Editor
         {
             if (textBoxDestination.Text != "")
             {
-                MainWindow mw = new MainWindow();
-                mw.extractArchive(textBoxDestination.Text); //not working NEED HELP
+                try
+                {
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window.GetType() == typeof(MainWindow))
+                        {
+                            (window as MainWindow).extractArchive(textBoxDestination.Text);
+                        }
+                    }
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }               
             }
         }
 

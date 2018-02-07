@@ -103,7 +103,6 @@ namespace CMF_Editor
 
         private void buttonExtract_Click(object sender, RoutedEventArgs e)
         {
-            openExtraction();
             if (this.archive == null)
             {
                 MessageBox.Show(this, "No CMF archive was opened. Please open a CMF archive to use this operation.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -174,14 +173,7 @@ namespace CMF_Editor
 
         public void extractArchive(string destination)
         {
-            try
-            {
-                this.archive.ExtractAllEntries(destination);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            this.archive.ExtractAllEntries(destination);
         }
         #endregion
 
