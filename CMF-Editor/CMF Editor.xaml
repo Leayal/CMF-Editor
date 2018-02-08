@@ -29,10 +29,18 @@
         <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,111,0,20" VerticalAlignment="Stretch">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Name}">
+                    <GridViewColumn Width="150">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Name" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Name</GridViewColumnHeader>
                         </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="20" Height="20" Source="{Binding TheImageUri}"/>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="90" DisplayMemberBinding="{Binding Size}">
                         <GridViewColumn.Header>
