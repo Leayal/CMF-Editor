@@ -5,4 +5,5 @@
     <BitmapImage x:Key="Icon2" UriSource="Icons/Graphics-Object.png"></BitmapImage>
     <BitmapImage x:Key="Icon3" UriSource="Icons/Image.png"></BitmapImage>
     <BitmapImage x:Key="Icon4" UriSource="Icons/Script.png"></BitmapImage>
+    <BitmapImage x:Key="Icon5" UriSource="Icons/Sound.png"></BitmapImage>
 </ResourceDictionary>
