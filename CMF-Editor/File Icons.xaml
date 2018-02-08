@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CMF_Editor">
+    <BitmapImage x:Key="Icon1" UriSource="Icons/General.png"></BitmapImage>
+    <BitmapImage x:Key="Icon2" UriSource="Icons/Graphics-Object.png"></BitmapImage>
+    <BitmapImage x:Key="Icon3" UriSource="Icons/Image.png"></BitmapImage>
+    <BitmapImage x:Key="Icon4" UriSource="Icons/Script.png"></BitmapImage>
+</ResourceDictionary>
