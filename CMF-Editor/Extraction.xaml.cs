@@ -19,9 +19,15 @@ namespace CMF_Editor
     /// </summary>
     public partial class Extraction : Window
     {
-        public Extraction()
+        private Leayal.Closers.CMF.CMFArchive myArchive;
+
+        public Extraction(Leayal.Closers.CMF.CMFArchive archive)
         {
+            this.myArchive = archive;
             InitializeComponent();
+            System.IO.FileStream fs = this.myArchive.BaseStream as System.IO.FileStream;
+            if (fs != null)
+                this.textBoxDestination.Text = $"{System.IO.Path.ChangeExtension(fs.Name, null)}_files";
         }
 
         #region "Control EventHandler"
@@ -39,17 +45,23 @@ namespace CMF_Editor
         }
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
-            if (textBoxDestination.Text != "")
+            if (!string.IsNullOrWhiteSpace(textBoxDestination.Text))
             {
+                string outputFolder;
+                if (this.checkBoxMisc1.IsChecked == true)
+                {
+                    System.IO.FileStream fs = this.myArchive.BaseStream as System.IO.FileStream;
+                    if (fs != null)
+                        outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), System.IO.Path.GetFileNameWithoutExtension(fs.Name) + "_files");
+                    else
+                        outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), "OutputFolder_files");
+                }
+                else
+                    outputFolder = System.IO.Path.GetFullPath(textBoxDestination.Text);
                 try
                 {
-                    foreach (Window window in Application.Current.Windows)
-                    {
-                        if (window.GetType() == typeof(MainWindow))
-                        {
-                            (window as MainWindow).extractArchive(textBoxDestination.Text);
-                        }
-                    }
+                    System.IO.Directory.CreateDirectory(outputFolder);
+                    this.myArchive.ExtractAllEntries(outputFolder);
                     this.Close();
                 }
                 catch (Exception ex)

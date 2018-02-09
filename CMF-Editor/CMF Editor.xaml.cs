@@ -97,7 +97,7 @@ namespace CMF_Editor
 
         public void openExtraction()
         {
-            Extraction extraction = new Extraction();
+            Extraction extraction = new Extraction(this.archive.Archive);
             extraction.Owner = App.Current.MainWindow;
             extraction.Show();
         }

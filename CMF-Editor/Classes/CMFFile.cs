@@ -12,6 +12,7 @@ namespace CMF_Editor.Classes
     class CMFFile : IDisposable
     {
         private CMFArchive archive;
+        public CMFArchive Archive => this.archive;
         public string Filename { get; }
         public CMFFile(string filename)
         {
