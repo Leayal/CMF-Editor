@@ -48,6 +48,36 @@ namespace CMF_Editor
         }
 
         #region "Control EventHandler"
+        private void buttonReplace_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.archive == null)
+            {
+                MessageBox.Show(this, "Please open a CMF file.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (this.lvFiles.SelectedItem == null)
+            {
+                MessageBox.Show(this, "Please select a file to replace.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = false;
+            if (ofd.ShowDialog(this) == true)
+            {
+                File fileinfo = this.lvFiles.SelectedItem as File;
+                if (fileinfo != null)
+                {
+                    using (var editor = this.archive.Archive.OpenEditor())
+                    using (System.IO.Stream stream = ofd.OpenFile())
+                    {
+                        editor.SetDataSource(fileinfo.Name, stream);
+                        editor.Save();
+                    }
+                }
+            }
+        }
+
         private void AppExit_Click(object sender, RoutedEventArgs e)
         {
             this.CloseArchive();
@@ -84,15 +114,8 @@ namespace CMF_Editor
             ofd.CheckFileExists = true;
             ofd.Filter = "Closers CMF|*.cmf";
             ofd.Multiselect = false;
-            bool? result = ofd.ShowDialog(this);
-            if (result.HasValue && result.Value)
-            {
-                this.CloseArchive();
-                this.archive = new CMFFile(ofd.FileName);
-                this.archive.Ready += this.Archive_Ready;
-                this.archive.Closed += this.Archive_Closed;
-                this.archive.BeginRead();
-            }
+            if (ofd.ShowDialog(this) == true)
+                this.OpenArchive(ofd.FileName);
         }
 
         public void openExtraction()
@@ -152,10 +175,22 @@ namespace CMF_Editor
 #endregion
 
         #region "Methods"
-        private void CloseArchive()
+        public void OpenArchive(string filepath)
+        {
+            this.CloseArchive();
+            this.archive = new CMFFile(filepath);
+            this.archive.Ready += this.Archive_Ready;
+            this.archive.Closed += this.Archive_Closed;
+            this.archive.BeginRead();
+        }
+
+        public void CloseArchive()
         {
             if (this.archive != null)
+            {
                 this.archive.Dispose();
+                this.archive = null;
+            }
         }
 
         private bool UserFilter(object item)

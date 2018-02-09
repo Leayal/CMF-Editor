@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CMF_Editor.Classes
 {
@@ -62,7 +64,9 @@ namespace CMF_Editor.Classes
                 result.CreateOptions = BitmapCreateOptions.DelayCreation;
                 result.UriSource = new Uri(path, UriKind.Relative);
                 result.EndInit();
-                
+
+                // result.Freeze();
+
                 return result;
             }
 
@@ -92,6 +96,8 @@ namespace CMF_Editor.Classes
 
                 // Script
                 result.Add("lua", Script);
+                result.Add("tet", Script);
+                result.Add("xet", Script);
 
                 // Effect (shader???)
                 result.Add("fx", Effect);

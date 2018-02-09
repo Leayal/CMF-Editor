@@ -20,7 +20,7 @@
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <Button x:Name="buttonReplace" Content="Replace" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"  Height="50"/>
+        <Button x:Name="buttonReplace" Content="Replace" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"  Height="50" Click="buttonReplace_Click"/>
         <Button x:Name="buttonExtract" Content="Extract to" HorizontalAlignment="Left" Margin="62,25,0,0" VerticalAlignment="Top"  Height="50" Click="buttonExtract_Click"/>
         <Button x:Name="buttonImageCompressor" Content="Image Compressor" HorizontalAlignment="Left" Margin="127,25,0,0" VerticalAlignment="Top"  Height="50" Click="buttonImageCompressor_Click"/>
         <Label x:Name="labelSearch" Content="Search" HorizontalAlignment="Left" Margin="5,80,0,0" VerticalAlignment="Top"/>
@@ -36,7 +36,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="20" Height="20" Source="{Binding TheImageUri}"/>
+                                    <Image Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Source="{Binding Icon}"/>
                                     <TextBlock Text="{Binding Name}"/>
                                 </StackPanel>
                             </DataTemplate>

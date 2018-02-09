@@ -36,7 +36,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CMF_Editor.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="PresentationFramework.Aero2">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\PresentationFramework.Aero2.dll</HintPath>
@@ -69,6 +73,7 @@
     <Compile Include="Extraction.xaml.cs">
       <DependentUpon>Extraction.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="WinForms\FolderBrowseDialogEx.cs" />
     <Compile Include="WinForms\FolderBrowseDialogExSelectChangedEventArgs.cs" />
     <Page Include="CMF Editor.xaml">
@@ -142,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dlls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
