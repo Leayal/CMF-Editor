@@ -12,11 +12,18 @@ namespace CMF_Editor.Classes
     class CMFFile : IDisposable
     {
         private CMFArchive archive;
+        public string Filename { get; }
         public CMFFile(string filename)
         {
             if (!System.IO.File.Exists(filename))
                 throw new System.IO.FileNotFoundException("Could not find the file", filename);
-            this.archive = CMFArchive.Read(filename);
+            this.Filename = filename;
+        }
+
+        public void BeginRead()
+        {
+            this.archive = CMFArchive.Read(this.Filename);
+            this.OnReady();
         }
 
         /// <summary>

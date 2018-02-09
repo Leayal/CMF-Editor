@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace nQuant
 {
@@ -11,11 +12,23 @@ namespace nQuant
             int imageSize = data.PixelsCount;
             LookupData lookups = BuildLookups(cubes, data);
 
-            IList<int> quantizedPixels = data.QuantizedPixels;
-            for (var index = 0; index < imageSize; ++index)
+            int[] quantizedPixels = data.QuantizedPixels;
+            byte[] intBytes = new byte[4];
+            unsafe
             {
-                var indexParts = BitConverter.GetBytes(quantizedPixels[index]);
-                quantizedPixels[index] = lookups.Tags[indexParts[Alpha], indexParts[Red], indexParts[Green], indexParts[Blue]];
+                fixed (byte* b = intBytes)
+                {
+                    for (var index = 0; index < imageSize; ++index)
+                    {
+                        b[0] = (byte)(quantizedPixels[index] >> 24);
+                        b[1] = (byte)(quantizedPixels[index] >> 16);
+                        b[2] = (byte)(quantizedPixels[index] >> 8);
+                        b[3] = (byte)(quantizedPixels[index]);
+                        quantizedPixels[index] = lookups.Tags[b[3], b[2], b[1], b[0]];
+                        // var indexParts = BitConverter.GetBytes(quantizedPixels[index]);
+                        // quantizedPixels[index] = lookups.Tags[indexParts[Alpha], indexParts[Red], indexParts[Green], indexParts[Blue]];
+                    }
+                }
             }
 
             var alphas = new int[colorCount + 1];

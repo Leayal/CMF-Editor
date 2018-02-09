@@ -53,13 +53,26 @@ namespace CMF_Editor.Classes
                 return this.Description;
             }
 
+            private static BitmapImage GetBitmapImage(string path)
+            {
+                BitmapImage result = new BitmapImage();
 
-            public static readonly FileType GraphicsObject = new FileType("Graphics Object");
-            public static readonly FileType Image = new FileType("Image/Texture");
-            public static readonly FileType Script = new FileType("Script");
-            public static readonly FileType Effect = new FileType("Effect");
-            public static readonly FileType Sound = new FileType("Sound");
-            public static readonly FileType Unknown = new FileType("Unknown");
+                result.BeginInit();
+                result.CacheOption = BitmapCacheOption.OnDemand;
+                result.CreateOptions = BitmapCreateOptions.DelayCreation;
+                result.UriSource = new Uri(path, UriKind.Relative);
+                result.EndInit();
+                
+                return result;
+            }
+
+
+            public static readonly FileType GraphicsObject = new FileType("Graphics Object", GetBitmapImage("Icons/Graphics-Object.png"));
+            public static readonly FileType Image = new FileType("Image/Texture", GetBitmapImage("Icons/Image.png"));
+            public static readonly FileType Script = new FileType("Script", GetBitmapImage("Icons/Script.png"));
+            public static readonly FileType Effect = new FileType("Effect", GetBitmapImage("Icons/Script.png"));
+            public static readonly FileType Sound = new FileType("Sound", GetBitmapImage("Icons/Sound.png"));
+            public static readonly FileType Unknown = new FileType("Unknown", GetBitmapImage("Icons/General.png"));
 
             private readonly static Dictionary<string, FileType> dict_exts = CreateDict();
 

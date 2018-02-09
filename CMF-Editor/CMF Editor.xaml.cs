@@ -91,6 +91,7 @@ namespace CMF_Editor
                 this.archive = new CMFFile(ofd.FileName);
                 this.archive.Ready += this.Archive_Ready;
                 this.archive.Closed += this.Archive_Closed;
+                this.archive.BeginRead();
             }
         }
 
