@@ -32,13 +32,29 @@ namespace CMF_Editor.Classes
             }
         }
 
-        public long? Size { get; set; }
+        private long? _size;
+        public long? Size
+        {
+            get => this._size;
+            set
+            {
+                this._size = value;
+                if (value.HasValue)
+                    this.SizeInString = (new ByteSize(value.Value)).ToString();
+                else
+                    this.SizeInString = TheFamousUnknown;
+            }
+        }
+
+        public string SizeInString { get; private set; }
 
         public string Type => this.filetype.Description;
 
         public BitmapImage Icon => this.filetype.Icon;
 
 #region "FileType"
+        public const string TheFamousUnknown = "Unknown";
+
         private class FileType
         {
             public string Description { get; }
@@ -76,7 +92,7 @@ namespace CMF_Editor.Classes
             public static readonly FileType Script = new FileType("Script", GetBitmapImage("Icons/Script.png"));
             public static readonly FileType Effect = new FileType("Effect", GetBitmapImage("Icons/Script.png"));
             public static readonly FileType Sound = new FileType("Sound", GetBitmapImage("Icons/Sound.png"));
-            public static readonly FileType Unknown = new FileType("Unknown", GetBitmapImage("Icons/General.png"));
+            public static readonly FileType Unknown = new FileType(TheFamousUnknown, GetBitmapImage("Icons/General.png"));
 
             private readonly static Dictionary<string, FileType> dict_exts = CreateDict();
 

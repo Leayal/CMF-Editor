@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\ByteSize.cs" />
     <Compile Include="Classes\CMFFile.cs" />
     <Compile Include="Classes\File.cs" />
     <Compile Include="Classes\IWin32Window.cs" />

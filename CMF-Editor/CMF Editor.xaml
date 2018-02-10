@@ -42,7 +42,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding Size}">
+                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding SizeInString}">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Size" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Size</GridViewColumnHeader>
                         </GridViewColumn.Header>
