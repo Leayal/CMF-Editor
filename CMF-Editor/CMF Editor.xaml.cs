@@ -55,12 +55,17 @@ namespace CMF_Editor
                 MessageBox.Show(this, "Please open a CMF file.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
+            if (this.archive.IsReadonly)
+            {
+                MessageBox.Show(this, "The archive is being read with read-only mode. Cannot modify the archive in this mode.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             if (this.lvFiles.SelectedItem == null)
             {
                 MessageBox.Show(this, "Please select a file to replace.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Multiselect = false;
             if (ofd.ShowDialog(this) == true)
@@ -181,7 +186,15 @@ namespace CMF_Editor
             this.archive = new CMFFile(filepath);
             this.archive.Ready += this.Archive_Ready;
             this.archive.Closed += this.Archive_Closed;
-            this.archive.BeginRead();
+            try
+            {
+                this.archive.BeginRead();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"Error while opening '{this.archive.Filename}'\n" + ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.archive = null;
+            }
         }
 
         public void CloseArchive()
@@ -222,10 +235,13 @@ namespace CMF_Editor
 
         private void Archive_Ready(object sender, EventArgs e)
         {
+            if (this.archive.IsReadonly)
+                this.Title = $"CMF Editor - {System.IO.Path.GetFileName(this.archive.Filename)} (Read-only mode)";
+            else
+                this.Title = $"CMF Editor - {System.IO.Path.GetFileName(this.archive.Filename)}";
             List<File> items = new List<File>(this.archive.FileCount);
-            using (var reader = this.archive.ExtractAllEntries())
-                while (reader.MoveToNextEntry())
-                    items.Add(new File(reader.Entry));
+            for (int i = 0; i < this.archive.FileCount; i++)
+                items.Add(new File(this.archive.Entries[i]));
 
             lvFiles.ItemsSource = items;
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvFiles.ItemsSource);

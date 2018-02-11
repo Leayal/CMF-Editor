@@ -21,9 +21,28 @@ namespace CMF_Editor.Classes
             this.Filename = filename;
         }
 
+        private bool _isreadonly;
+        public bool IsReadonly => this._isreadonly;
+
         public void BeginRead()
         {
-            this.archive = CMFArchive.Read(this.Filename);
+            System.IO.FileStream fs;
+            try
+            {
+                fs = System.IO.File.Open(this.Filename, System.IO.FileMode.Open, System.IO.FileAccess.ReadWrite, System.IO.FileShare.Read);
+                this._isreadonly = false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                fs = System.IO.File.OpenRead(this.Filename);
+                this._isreadonly = true;
+            }
+            catch (System.IO.IOException)
+            {
+                fs = System.IO.File.OpenRead(this.Filename);
+                this._isreadonly = true;
+            }
+            this.archive = CMFArchive.Read(fs, false);
             this.OnReady();
         }
 
