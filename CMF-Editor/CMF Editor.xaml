@@ -9,7 +9,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/ResourceDictionary/ToolbarButton.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionary/CustomButton.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionary/CustomComboBox.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionary/CustomTextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>

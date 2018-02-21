@@ -39,6 +39,9 @@
   <PropertyGroup>
     <StartupObject>CMF_Editor.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>xdH4fh.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationFramework.Aero" />
@@ -109,7 +112,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceDictionary\ToolbarButton.xaml">
+    <Page Include="ResourceDictionary\CustomButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Background\Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="xdH4fh.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
