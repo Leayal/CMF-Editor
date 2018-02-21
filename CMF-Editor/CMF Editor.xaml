@@ -6,9 +6,25 @@
         xmlns:local="clr-namespace:CMF_Editor"
         mc:Ignorable="d"
         Title="CMF Editor" Height="600" Width="800" MinWidth="300">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionary/ToolbarButton.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionary/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionary/CustomTextBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+            <GradientStop Color="#FFFEE8B8" Offset="0"/>
+            <GradientStop Color="#FFFD8290" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Height="20">
+            <Menu DockPanel.Dock="Top" Height="20" Background="#FFF7B9BE">
                 <MenuItem Header="_File" Height="20">
                     <MenuItem Header="_Open" Click="MenuItemOpen_Click"/>
                     <MenuItem Header="_Exit" Click="AppExit_Click"/>
@@ -20,13 +36,42 @@
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <Button x:Name="buttonReplace" Content="Replace" HorizontalAlignment="Left" Margin="5,25,0,0" VerticalAlignment="Top"  Height="50" Click="buttonReplace_Click"/>
-        <Button x:Name="buttonExtract" Content="Extract to" HorizontalAlignment="Left" Margin="62,25,0,0" VerticalAlignment="Top"  Height="50" Click="buttonExtract_Click"/>
-        <Button x:Name="buttonImageCompressor" Content="Image Compressor" HorizontalAlignment="Left" Margin="127,25,0,0" VerticalAlignment="Top"  Height="50" Click="buttonImageCompressor_Click"/>
-        <Label x:Name="labelSearch" Content="Search" HorizontalAlignment="Left" Margin="5,80,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBoxSearch" HorizontalAlignment="Stretch" Height="26" Margin="55,80,154,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" VerticalContentAlignment="Center" TextChanged="textBoxSearch_TextChanged"/>
-        <Button x:Name="buttonClear" Content="Clear" HorizontalAlignment="Right" Margin="0,80,5,0" VerticalAlignment="Top" Width="44" Height="26" RenderTransformOrigin="0.109,0.547" Click="buttonClear_Click"/>
-        <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,111,0,20" VerticalAlignment="Stretch">
+        <Button x:Name="buttonReplace" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonReplace_Click" Width="101" BorderBrush="{x:Null}" Style="{DynamicResource ResourceKey=ToolbarButton}">
+            <Button.Background>
+                <ImageBrush ImageSource="Images/Buttons/btn-Replace.png" Stretch="Uniform"/>
+            </Button.Background>
+            <Button.Content>
+                <Image Source="Images/Buttons/btn-Replace.png" Width="101" />
+            </Button.Content>
+        </Button>
+        <Button x:Name="buttonExtract" HorizontalAlignment="Left" Margin="116,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonExtract_Click" Width="108" BorderBrush="{x:Null}" Style="{DynamicResource ResourceKey=ToolbarButton}">
+            <Button.Background>
+                <ImageBrush ImageSource="Images/Buttons/btn-Extract.png" Stretch="Uniform"/>
+            </Button.Background>
+            <Button.Content>
+                <Image Source="Images/Buttons/btn-Extract.png" Width="108" />
+            </Button.Content>
+        </Button>
+        <Button x:Name="buttonImageCompressor" HorizontalAlignment="Left" Margin="229,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonImageCompressor_Click" Width="125" BorderBrush="{x:Null}" Style="{DynamicResource ResourceKey=ToolbarButton}">
+            <Button.Background>
+                <ImageBrush ImageSource="Images/Buttons/btn-ImageCompressor.png" Stretch="Uniform"/>
+            </Button.Background>
+            <Button.Content>
+                <Image Source="Images/Buttons/btn-ImageCompressor.png" Width="125" />
+            </Button.Content>
+        </Button>
+        <Label x:Name="labelSearch" Content="Search" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <TextBox x:Name="textBoxSearch" HorizontalAlignment="Stretch" Height="26" Margin="60,118,164,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" VerticalContentAlignment="Center" TextChanged="textBoxSearch_TextChanged" BorderBrush="#FFF85974" Template="{DynamicResource SearchBox}"/>
+        <Button x:Name="buttonClear" Content="" HorizontalAlignment="Right" Margin="0,118,10,0" VerticalAlignment="Top" Width="49" Height="26" RenderTransformOrigin="0.109,0.547" Click="buttonClear_Click" BorderBrush="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="Images/Buttons/btn-Clear.png"/>
+            </Button.Background>
+        </Button>
+        <Image HorizontalAlignment="Right" Margin="0,0,0,40" VerticalAlignment="Bottom" Height="217" OpacityMask="Black" Source="Images/Background/Background.png"/>
+        <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,149,0,20" VerticalAlignment="Stretch">
+            <ListView.Background>
+                <SolidColorBrush Color="White" Opacity="0.4"/>
+            </ListView.Background>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="150">
@@ -35,7 +80,7 @@
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" Background="Transparent">
                                     <Image Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Source="{Binding Icon}"/>
                                     <TextBlock Text="{Binding Name}"/>
                                 </StackPanel>
@@ -55,14 +100,15 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
         <DockPanel>
-            <Menu DockPanel.Dock="Bottom" Height="20">
+            <Menu DockPanel.Dock="Bottom" Height="20" Background="#FFFFCCCC">
 
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <ComboBox x:Name="searchType" HorizontalAlignment="Right" Margin="0,80,54,0" VerticalAlignment="Top" Width="95" Height="26" IsReadOnly="True" SelectedIndex="0" VerticalContentAlignment="Center">
-            
+        <ComboBox x:Name="searchType" HorizontalAlignment="Right" Margin="0,118,64,0" VerticalAlignment="Top" Width="95" Height="26" IsReadOnly="True" SelectedIndex="0" VerticalContentAlignment="Center" BorderBrush="#FFF85974">
+
         </ComboBox>
 
 

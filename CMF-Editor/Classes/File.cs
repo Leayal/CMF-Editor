@@ -87,12 +87,12 @@ namespace CMF_Editor.Classes
             }
 
 
-            public static readonly FileType GraphicsObject = new FileType("Graphics Object", GetBitmapImage("Icons/Graphics-Object.png"));
-            public static readonly FileType Image = new FileType("Image/Texture", GetBitmapImage("Icons/Image.png"));
-            public static readonly FileType Script = new FileType("Script", GetBitmapImage("Icons/Script.png"));
-            public static readonly FileType Effect = new FileType("Effect", GetBitmapImage("Icons/Script.png"));
-            public static readonly FileType Sound = new FileType("Sound", GetBitmapImage("Icons/Sound.png"));
-            public static readonly FileType Unknown = new FileType(TheFamousUnknown, GetBitmapImage("Icons/General.png"));
+            public static readonly FileType GraphicsObject = new FileType("Graphics Object", GetBitmapImage("Images/Icons/Graphics-Object.png"));
+            public static readonly FileType Image = new FileType("Image/Texture", GetBitmapImage("Images/Icons/Image.png"));
+            public static readonly FileType Script = new FileType("Script", GetBitmapImage("Images/Icons/Script.png"));
+            public static readonly FileType Effect = new FileType("Effect", GetBitmapImage("Images/Icons/Script.png"));
+            public static readonly FileType Sound = new FileType("Sound", GetBitmapImage("Images/Icons/Sound.png"));
+            public static readonly FileType Unknown = new FileType(TheFamousUnknown, GetBitmapImage("Images/Icons/General.png"));
 
             private readonly static Dictionary<string, FileType> dict_exts = CreateDict();
 
