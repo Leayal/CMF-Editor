@@ -80,6 +80,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="WinForms\FolderBrowseDialogEx.cs" />
     <Compile Include="WinForms\FolderBrowseDialogExSelectChangedEventArgs.cs" />
+    <Compile Include="WinForms\Interop\comguids.cs" />
+    <Compile Include="WinForms\Interop\errorhelper.cs" />
+    <Compile Include="WinForms\Interop\helpers.cs" />
+    <Compile Include="WinForms\Interop\nativemethods.cs" />
+    <Compile Include="WinForms\Interop\nativetaskdialogshowstate.cs" />
+    <Compile Include="WinForms\Interop\shellcominterfaces.cs" />
+    <Compile Include="WinForms\Interop\shellwrapperdefinitions.cs" />
+    <Compile Include="WinForms\WpfFolderBrowserDialogEx.cs" />
     <Page Include="CMF Editor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
