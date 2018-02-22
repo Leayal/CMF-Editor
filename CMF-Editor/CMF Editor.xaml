@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="/ResourceDictionary/CustomButton.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionary/CustomComboBox.xaml"/>
                 <ResourceDictionary Source="/ResourceDictionary/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="/ResourceDictionary/CustomGridView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -33,6 +34,9 @@
                     <MenuItem Header="_Image Compressor" Click="buttonImageCompressor_Click"/>
                     <MenuItem Header="_PMX Editor"/>
                 </MenuItem>
+                <MenuItem Header="_Options">
+                    <MenuItem Header="_Settings"/>
+                </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
@@ -41,7 +45,7 @@
                 <ImageBrush ImageSource="Images/Buttons/btn-Replace.png" Stretch="Uniform"/>
             </Button.Background>
             <Button.Content>
-                <Image Source="Images/Buttons/btn-Replace.png" Width="101" />
+                <Image Source="Images/Buttons/btn-Replace.png" Width="101" ClipToBounds="True" />
             </Button.Content>
         </Button>
         <Button x:Name="buttonExtract" HorizontalAlignment="Left" Margin="116,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonExtract_Click" Width="108" BorderBrush="{x:Null}" Style="{DynamicResource ResourceKey=ToolbarButton}">
@@ -49,7 +53,7 @@
                 <ImageBrush ImageSource="Images/Buttons/btn-Extract.png" Stretch="Uniform"/>
             </Button.Background>
             <Button.Content>
-                <Image Source="Images/Buttons/btn-Extract.png" Width="108" />
+                <Image Source="Images/Buttons/btn-Extract.png" Width="108" ClipToBounds="True" />
             </Button.Content>
         </Button>
         <Button x:Name="buttonImageCompressor" HorizontalAlignment="Left" Margin="229,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonImageCompressor_Click" Width="125" BorderBrush="{x:Null}" Style="{DynamicResource ResourceKey=ToolbarButton}">
@@ -57,7 +61,7 @@
                 <ImageBrush ImageSource="Images/Buttons/btn-ImageCompressor.png" Stretch="Uniform"/>
             </Button.Background>
             <Button.Content>
-                <Image Source="Images/Buttons/btn-ImageCompressor.png" Width="125" />
+                <Image Source="Images/Buttons/btn-ImageCompressor.png" Width="125" ClipToBounds="True" />
             </Button.Content>
         </Button>
         <Label x:Name="labelSearch" Content="Search" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
@@ -67,13 +71,15 @@
                 <ImageBrush ImageSource="Images/Buttons/btn-Clear.png"/>
             </Button.Background>
         </Button>
-        <Image HorizontalAlignment="Right" Margin="0,0,0,40" VerticalAlignment="Bottom" Height="217" OpacityMask="Black" Source="Images/Background/Background.png"/>
-        <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,149,0,20" VerticalAlignment="Stretch">
+        <Grid Margin="0,149,0,0">
+        <Image HorizontalAlignment="Right" Margin="0,0,0,20" VerticalAlignment="Bottom" Height="300" OpacityMask="Black" Source="Images/Background/Background.png"/>
+        
+        <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,0,0,20" VerticalAlignment="Stretch" BorderThickness="0" ClipToBounds="True">
             <ListView.Background>
                 <SolidColorBrush Color="White" Opacity="0.4"/>
             </ListView.Background>
             <ListView.View>
-                <GridView>
+                    <GridView ColumnHeaderContainerStyle="{DynamicResource CustomGridViewHeader}">
                     <GridViewColumn Width="150">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Name" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Name</GridViewColumnHeader>
@@ -100,14 +106,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
+        </Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Bottom" Height="20" Background="#FFFFCCCC">
 
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        <ComboBox x:Name="searchType" HorizontalAlignment="Right" Margin="0,118,64,0" VerticalAlignment="Top" Width="95" Height="26" IsReadOnly="True" SelectedIndex="0" VerticalContentAlignment="Center" BorderBrush="#FFF85974">
+        <ComboBox x:Name="searchType" HorizontalAlignment="Right" Margin="0,118,64,0" VerticalAlignment="Top" Width="95" Height="26" IsReadOnly="True" SelectedIndex="0" VerticalContentAlignment="Center" BorderBrush="Green" BorderThickness="1" Style="{DynamicResource ComboBoxFlatStyle}">
 
         </ComboBox>
 

@@ -92,6 +92,10 @@
       <DependentUpon>CMF Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourceDictionary\CustomGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionary\CustomTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,10 +178,10 @@
     <Resource Include="Images\Buttons\btn-Replace.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Background\Background.png" />
+    <Resource Include="xdH4fh.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="xdH4fh.ico" />
+    <Resource Include="Images\Background\Background.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
