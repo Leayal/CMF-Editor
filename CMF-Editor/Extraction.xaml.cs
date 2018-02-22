@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CMF_Editor.WinForms;
 using Microsoft.Win32;
 
 namespace CMF_Editor
@@ -33,15 +34,12 @@ namespace CMF_Editor
         #region "Control EventHandler"
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
         {
-            using (Leayal.Forms.FolderBrowseDialogEx folderBrowse = new Leayal.Forms.FolderBrowseDialogEx())
+            using (WpfFolderBrowserDialogEx folderBrowse = new WpfFolderBrowserDialogEx()
             {
-                folderBrowse.ShowNewFolderButton = true;
-                folderBrowse.ShowTextBox = true;
-                folderBrowse.Description = "Select destination folder";
-                folderBrowse.OKButtonText = "Select";
-                bool? result = folderBrowse.ShowDialog(this);
-                if (result.HasValue && result.Value) textBoxDestination.Text = folderBrowse.SelectedDirectory;
-            }
+                Title = "Select destination folder"
+            })
+                if (folderBrowse.ShowDialog(this) == true)
+                    textBoxDestination.Text = folderBrowse.FileName;
         }
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
