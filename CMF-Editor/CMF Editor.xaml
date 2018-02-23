@@ -46,29 +46,29 @@
             <StackPanel></StackPanel>
         </DockPanel>
         <Button x:Name="buttonReplace" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonReplace_Click" Width="101" BorderBrush="{x:Null}" 
-                helper:ImageLoader.DefaultImage="Images/Buttons/btn-Replace.png"
-                helper:ImageLoader.HoverImage="Images/Buttons/btn-Replace.png"
-                helper:ImageLoader.ClickedImage="Images/Buttons/btn-Replace.png"
+                helper:ImageLoader.DefaultImage="/SharedResources;Component/Images/Buttons/btn-Replace.png"
+                helper:ImageLoader.HoverImage="/SharedResources;Component/Images/Buttons/btn-Replace.png"
+                helper:ImageLoader.ClickedImage="/SharedResources;Component/Images/Buttons/btn-Replace.png"
                 Style="{DynamicResource ResourceKey=ToolbarButton}" />
         <Button x:Name="buttonExtract" HorizontalAlignment="Left" Margin="116,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonExtract_Click" Width="108" BorderBrush="{x:Null}" 
-                helper:ImageLoader.DefaultImage="Images/Buttons/btn-Extract.png"
-                helper:ImageLoader.HoverImage="Images/Buttons/btn-Extract.png"
-                helper:ImageLoader.ClickedImage="Images/Buttons/btn-Extract.png"
+                helper:ImageLoader.DefaultImage="/SharedResources;Component/Images/Buttons/btn-Extract.png"
+                helper:ImageLoader.HoverImage="/SharedResources;Component/Images/Buttons/btn-Extract.png"
+                helper:ImageLoader.ClickedImage="/SharedResources;Component/Images/Buttons/btn-Extract.png"
                 Style="{DynamicResource ResourceKey=ToolbarButton}" />
         <Button x:Name="buttonImageCompressor" HorizontalAlignment="Left" Margin="229,28,0,0" VerticalAlignment="Top"  Height="85" Click="buttonImageCompressor_Click" Width="125" BorderBrush="{x:Null}" 
-                helper:ImageLoader.DefaultImage="Images/Buttons/btn-ImageCompressor.png"
-                helper:ImageLoader.HoverImage="Images/Buttons/btn-ImageCompressor.png"
-                helper:ImageLoader.ClickedImage="Images/Buttons/btn-ImageCompressor.png"
+                helper:ImageLoader.DefaultImage="/SharedResources;Component/Images/Buttons/btn-ImageCompressor.png"
+                helper:ImageLoader.HoverImage="/SharedResources;Component/Images/Buttons/btn-ImageCompressor.png"
+                helper:ImageLoader.ClickedImage="/SharedResources;Component/Images/Buttons/btn-ImageCompressor.png"
                 Style="{DynamicResource ResourceKey=ToolbarButton}" />
         <Label x:Name="labelSearch" Content="Search" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox x:Name="textBoxSearch" HorizontalAlignment="Stretch" Height="26" Margin="60,118,164,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" VerticalContentAlignment="Center" TextChanged="textBoxSearch_TextChanged" BorderBrush="#FFF85974" Template="{DynamicResource SearchBox}"/>
         <Button x:Name="buttonClear" Content="" HorizontalAlignment="Right" Margin="0,118,10,0" VerticalAlignment="Top" Width="49" Height="26" RenderTransformOrigin="0.109,0.547" Click="buttonClear_Click" BorderBrush="{x:Null}" 
-                helper:ImageLoader.DefaultImage="Images/Buttons/btn-Clear.png"
-                helper:ImageLoader.HoverImage="Images/Buttons/btn-Clear.png"
-                helper:ImageLoader.ClickedImage="Images/Buttons/btn-Clear.png"
+                helper:ImageLoader.DefaultImage="/SharedResources;Component/Images/Buttons/btn-Clear.png"
+                helper:ImageLoader.HoverImage="/SharedResources;Component/Images/Buttons/btn-Clear.png"
+                helper:ImageLoader.ClickedImage="/SharedResources;Component/Images/Buttons/btn-Clear.png"
                 Style="{DynamicResource ResourceKey=ToolbarButton}" />
         <Grid Margin="0,149,0,0">
-            <Image HorizontalAlignment="Right" Margin="0,0,0,20" VerticalAlignment="Bottom" Height="300" OpacityMask="Black" Source="Images/Background/Background.png"/>
+            <Image HorizontalAlignment="Right" Margin="0,0,0,20" VerticalAlignment="Bottom" Height="300" OpacityMask="Black" Source="/SharedResources;Component/Images/Background/Background.png"/>
 
             <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,0,0,20" VerticalAlignment="Stretch" BorderThickness="0" ClipToBounds="True">
                 <ListView.Background>

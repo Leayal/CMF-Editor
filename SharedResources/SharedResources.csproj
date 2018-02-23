@@ -88,5 +88,35 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Background\Background.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\btn-Clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\btn-Extract.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\btn-ImageCompressor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\btn-Replace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\General.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Graphics-Object.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Script.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Sound.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

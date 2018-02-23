@@ -86,12 +86,12 @@ namespace CMF_Editor.Classes
             }
 
 
-            public static readonly FileType GraphicsObject = new FileType("Graphics Object", GetBitmapImage("Images/Icons/Graphics-Object.png"));
-            public static readonly FileType Image = new FileType("Image/Texture", GetBitmapImage("Images/Icons/Image.png"));
-            public static readonly FileType Script = new FileType("Script", GetBitmapImage("Images/Icons/Script.png"));
-            public static readonly FileType Effect = new FileType("Effect", GetBitmapImage("Images/Icons/Script.png"));
-            public static readonly FileType Sound = new FileType("Sound", GetBitmapImage("Images/Icons/Sound.png"));
-            public static readonly FileType Unknown = new FileType(TheFamousUnknown, GetBitmapImage("Images/Icons/General.png"));
+            public static readonly FileType GraphicsObject = new FileType("Graphics Object", GetBitmapImage("/SharedResources;Component/Images/Icons/Graphics-Object.png"));
+            public static readonly FileType Image = new FileType("Image/Texture", GetBitmapImage("/SharedResources;Component/Images/Icons/Image.png"));
+            public static readonly FileType Script = new FileType("Script", GetBitmapImage("/SharedResources;Component/Images/Icons/Script.png"));
+            public static readonly FileType Effect = new FileType("Effect", GetBitmapImage("/SharedResources;Component/Images/Icons/Script.png"));
+            public static readonly FileType Sound = new FileType("Sound", GetBitmapImage("/SharedResources;Component/Images/Icons/Sound.png"));
+            public static readonly FileType Unknown = new FileType(TheFamousUnknown, GetBitmapImage("/SharedResources;Component/Images/Icons/General.png"));
 
             private readonly static Dictionary<string, FileType> dict_exts = CreateDict();
 

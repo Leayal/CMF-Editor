@@ -160,28 +160,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icons\General.png" />
-    <Resource Include="Images\Icons\Graphics-Object.png" />
-    <Resource Include="Images\Icons\Image.png" />
-    <Resource Include="Images\Icons\Script.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Icons\Sound.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Dlls\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Buttons\btn-Extract.png" />
-    <Resource Include="Images\Buttons\btn-Clear.png" />
-    <Resource Include="Images\Buttons\btn-ImageCompressor.png" />
-    <Resource Include="Images\Buttons\btn-Replace.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="xdH4fh.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Background\Background.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
