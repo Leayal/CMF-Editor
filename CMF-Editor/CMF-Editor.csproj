@@ -79,6 +79,9 @@
     </Compile>
     <Compile Include="Helper\ImageLoader.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Progress Dialog.xaml.cs">
+      <DependentUpon>Progress Dialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\FolderBrowseDialogEx.cs" />
     <Compile Include="WinForms\FolderBrowseDialogExSelectChangedEventArgs.cs" />
     <Compile Include="WinForms\Interop\comguids.cs" />
@@ -101,6 +104,14 @@
       <DependentUpon>CMF Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourceDictionary\CustomLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Progress Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionary\CustomGridView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,10 +121,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Extraction.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="File Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
