@@ -41,41 +41,113 @@ namespace CMF_Editor
                 if (folderBrowse.ShowDialog(this) == true)
                     textBoxDestination.Text = folderBrowse.FileName;
         }
-        private void buttonOK_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(textBoxDestination.Text))
-            {
-                string outputFolder;
-                if (this.checkBoxMisc1.IsChecked == true)
-                {
-                    System.IO.FileStream fs = this.myArchive.BaseStream as System.IO.FileStream;
-                    if (fs != null)
-                        outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), System.IO.Path.GetFileNameWithoutExtension(fs.Name) + "_files");
-                    else
-                        outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), "OutputFolder_files");
-                }
-                else
-                    outputFolder = System.IO.Path.GetFullPath(textBoxDestination.Text);
-                try
-                {
-                    System.IO.Directory.CreateDirectory(outputFolder);
-                    this.myArchive.ExtractAllEntries(outputFolder);
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }               
-            }
-        }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.DialogResult = false;
         }
 
+        private void buttonOK_ClickOld(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxDestination.Text))
+            {
+                MessageBox.Show(this, "The destination path cannot be empty.", "Warning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+
+            string outputFolder;
+            if (this.checkBoxMisc1.IsChecked == true)
+            {
+                System.IO.FileStream fs = this.myArchive.BaseStream as System.IO.FileStream;
+                if (fs != null)
+                    outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), System.IO.Path.GetFileNameWithoutExtension(fs.Name) + "_files");
+                else
+                    outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), "OutputFolder_files");
+            }
+            else
+                outputFolder = System.IO.Path.GetFullPath(textBoxDestination.Text);
+            try
+            {
+                System.IO.Directory.CreateDirectory(outputFolder);
+                this.myArchive.ExtractAllEntries(outputFolder);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void buttonOK_Click(object sender, RoutedEventArgs e)
+        {
+            this.OptionUpdateMode = this.GetUpdateMode();
+            this.OptionOverwriteMode = this.GetOverwriteMode();
+            this.OptionFilePathType = this.GetFilePathType();
+            this.OptionToSubfolder = this.checkBoxMisc1.IsChecked;
+            this.OptionDisplayFileAfterExtract = this.checkBoxMisc2.IsChecked;
+            this.OptionContinueOnError = this.checkBoxMisc3.IsChecked;
+            this.DialogResult = true;
+        }
         #endregion
 
+        public UpdateMode OptionUpdateMode { get; private set; }
+        public OverwriteMode OptionOverwriteMode { get; private set; }
+        public FilePathType OptionFilePathType { get; private set; }
+        public bool? OptionToSubfolder { get; private set; }
+        public bool? OptionDisplayFileAfterExtract { get; private set; }
+        public bool? OptionContinueOnError { get; private set; }
 
+        private UpdateMode GetUpdateMode()
+        {
+            if (radioUpdate2.IsChecked == true)
+                return UpdateMode.ExtractExistingOnly;
+            else if (radioUpdate3.IsChecked == true)
+                return UpdateMode.ExtractNonExistingOnly;
+            else
+                return UpdateMode.ExtractAndReplace;
+        }
+
+        private OverwriteMode GetOverwriteMode()
+        {
+            if (radioOverwrite2.IsChecked == true)
+                return OverwriteMode.Overwrite;
+            else if (radioOverwrite3.IsChecked == true)
+                return OverwriteMode.SkipExisting;
+            else if (radioOverwrite4.IsChecked == true)
+                return OverwriteMode.AutoRename;
+            else
+                return OverwriteMode.Prompt;
+        }
+
+        private FilePathType GetFilePathType()
+        {
+            if (radioFilePaths3.IsChecked == true)
+                return FilePathType.FlatPath;
+            else
+                return FilePathType.RelativePath;
+        }
+
+        #region "Private declares"
+        public enum UpdateMode : byte
+        {
+            ExtractAndReplace = 0,
+            ExtractExistingOnly = 1 << 0,
+            ExtractNonExistingOnly = 1 << 1
+        }
+
+        public enum OverwriteMode : byte
+        {
+            Prompt = 0,
+            Overwrite = 1 << 0,
+            SkipExisting = 1 << 1,
+            AutoRename = 1 << 2
+        }
+
+        public enum FilePathType : byte
+        {
+            RelativePath = 0,
+            FlatPath = 1 << 0
+        }
+        #endregion
     }
 }

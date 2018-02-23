@@ -70,6 +70,7 @@ namespace CMF_Editor
             }
             catch (Exception ex)
             {
+                System.Environment.ExitCode = 2;
                 if (app != null)
                     System.Windows.MessageBox.Show(mainwindow, ex.ToString(), "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }

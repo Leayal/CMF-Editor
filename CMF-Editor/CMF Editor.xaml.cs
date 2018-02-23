@@ -126,8 +126,21 @@ namespace CMF_Editor
         public void openExtraction()
         {
             Extraction extraction = new Extraction(this.archive.Archive);
-            extraction.Owner = App.Current.MainWindow;
-            extraction.Show();
+            extraction.Owner = this;
+            if (extraction.ShowDialog() == true)
+            {
+                //ProgressDialog asd = new ProgressDialog(new ExtractionOptions()
+                //{
+                //    OptionContinueOnError = (extraction.OptionContinueOnError == true),
+                //    OptionFilePathType = extraction.OptionFilePathType,
+                //    OptionDisplayFileAfterExtract = (extraction.OptionDisplayFileAfterExtract == true),
+                //    OptionToSubfolder = (extraction.OptionToSubfolder == true),
+                //    OptionOverwriteMode = extraction.OptionOverwriteMode,
+                //    OptionUpdateMode = extraction.OptionUpdateMode,
+                //}, this.taskbarItem);
+                //asd.Owner = this;
+                //asd.ShowDialog();
+            }
         }
 
         private void buttonExtract_Click(object sender, RoutedEventArgs e)
@@ -170,7 +183,7 @@ namespace CMF_Editor
         public void openImageCompressor()
         {
             Image_Compressor imageConpressor = new Image_Compressor();
-            imageConpressor.Owner = App.Current.MainWindow;
+            imageConpressor.Owner = this;
             imageConpressor.Show();
         }
         private void buttonImageCompressor_Click(object sender, RoutedEventArgs e)

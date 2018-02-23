@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:classes="clr-namespace:CMF_Editor.Classes"
         xmlns:local="clr-namespace:CMF_Editor"
         mc:Ignorable="d"
-        Title="Extraction path and options" Height="466" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="Extraction path and options" Height="355.667" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <Label Content="Destination path (will be created if does not exist)" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxDestination" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="394" VerticalContentAlignment="Center"/>
@@ -13,11 +14,11 @@
         <GroupBox Header="Update mode" HorizontalAlignment="Left" Height="116" Margin="10,64,0,0" VerticalAlignment="Top" Width="235">
             <Grid>
                 <RadioButton x:Name="radioUpdate1" Content="Extract and replace files" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                <RadioButton x:Name="radioUpdate2" Content="Extract and update files" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="radioUpdate3" Content="Fresh existing files only" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="radioUpdate2" Content="Extract existing files only" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="radioUpdate3" Content="Extract non-existing file only" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Overwrite mode" HorizontalAlignment="Left" Height="116" Margin="250,64,0,0" VerticalAlignment="Top" Width="235">
+        <GroupBox Header="Overwrite mode" HorizontalAlignment="Left" Height="116" Margin="250,64,0,0" VerticalAlignment="Top" Width="235" >
             <Grid>
                 <RadioButton x:Name="radioOverwrite1" Content="Ask before overwrite" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
                 <RadioButton x:Name="radioOverwrite2" Content="Overwrite without prompt" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
@@ -25,29 +26,21 @@
                 <RadioButton x:Name="radioOverwrite4" Content="Rename automatically" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="File paths" HorizontalAlignment="Left" Height="116" Margin="10,185,0,0" VerticalAlignment="Top" Width="235">
+        <GroupBox Header="File paths" HorizontalAlignment="Left" Height="71" Margin="10,185,0,0" VerticalAlignment="Top" Width="235">
             <Grid>
-                <RadioButton x:Name="radioFilePaths1" Content="Extract relative paths" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                <RadioButton x:Name="radioFilePaths2" Content="Extract full paths" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="radioFilePaths3" Content="Do not extract paths" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="radioFilePaths4" Content="Extract absolute paths" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="radioFilePaths1" Content="Extract relative path" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                <RadioButton x:Name="radioFilePaths3" Content="Flatten path (Filename only)" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.501,-1.8"/>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Delete Archive" HorizontalAlignment="Left" Height="116" Margin="250,185,0,0" VerticalAlignment="Top" Width="235">
+        <GroupBox Header="Miscellaneous" HorizontalAlignment="Left" Height="90" Margin="250,185,0,0" VerticalAlignment="Top" Width="235">
             <Grid>
-                <RadioButton x:Name="radioDelete1" Content="Never" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                <RadioButton x:Name="radioDelete2" Content="Ask for confirmation" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
-                <RadioButton x:Name="radioDelete3" Content="Always" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Miscellaneous" HorizontalAlignment="Left" Height="77" Margin="10,306,0,0" VerticalAlignment="Top" Width="235">
-            <Grid>
-                <CheckBox x:Name="checkBoxMisc1" Content="Extract archives to subfolders" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.38,0.378"/>
+                <CheckBox x:Name="checkBoxMisc1" Content="Extract archive to subfolder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.38,0.378"/>
                 <CheckBox x:Name="checkBoxMisc2" Content="Display files in Explorer" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.38,0.378"/>
+                <CheckBox x:Name="checkBoxMisc3" Content="Continue extraction on error" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.38,0.378"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="249,399,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="buttonOK_Click"/>
-        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="329,399,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="buttonCancel_Click"/>
-        <Button x:Name="buttonHelp" Content="Help" HorizontalAlignment="Left" Margin="409,399,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="249,290,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="buttonOK_Click"/>
+        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="329,290,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="buttonCancel_Click"/>
+        <Button x:Name="buttonHelp" Content="Help" HorizontalAlignment="Left" Margin="409,290,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
     </Grid>
 </Window>

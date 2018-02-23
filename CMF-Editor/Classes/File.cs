@@ -79,9 +79,8 @@ namespace CMF_Editor.Classes
                 result.CacheOption = BitmapCacheOption.OnDemand;
                 result.CreateOptions = BitmapCreateOptions.DelayCreation;
                 result.UriSource = new Uri(path, UriKind.Relative);
+                result.DownloadCompleted += (sender, e) => { ((BitmapImage)sender).Freeze(); };
                 result.EndInit();
-
-                // result.Freeze();
 
                 return result;
             }

@@ -72,12 +72,12 @@
     <Compile Include="Classes\ByteSize.cs" />
     <Compile Include="Classes\CMFFile.cs" />
     <Compile Include="Classes\File.cs" />
+    <Compile Include="Classes\InverseBooleanConverter.cs" />
     <Compile Include="Classes\IWin32Window.cs" />
     <Compile Include="Classes\SortAdorner.cs" />
     <Compile Include="Extraction.xaml.cs">
       <DependentUpon>Extraction.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helper\ImageLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Progress Dialog.xaml.cs">
       <DependentUpon>Progress Dialog.xaml</DependentUpon>
@@ -104,19 +104,7 @@
       <DependentUpon>CMF Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ResourceDictionary\CustomLabel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Progress Dialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionary\CustomGridView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionary\CustomTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,14 +113,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Image Compressor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionary\CustomComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionary\CustomButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,6 +153,10 @@
     <ProjectReference Include="..\nQuant.Core\nQuant.Core.csproj">
       <Project>{a59307ea-fcb0-4110-bc42-0417871c24c4}</Project>
       <Name>nQuant.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedResources\SharedResources.csproj">
+      <Project>{175ff3ec-37ba-4824-9771-47ae68c6629f}</Project>
+      <Name>SharedResources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

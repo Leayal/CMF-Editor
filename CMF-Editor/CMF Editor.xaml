@@ -4,16 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CMF_Editor"
-        xmlns:helper="clr-namespace:CMF_Editor.Helper"
+        xmlns:helper="clr-namespace:SharedResources.Helper;assembly=SharedResources"
         mc:Ignorable="d"
         Title="CMF Editor" Height="600" Width="800" MinWidth="300">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/ResourceDictionary/CustomButton.xaml"/>
-                <ResourceDictionary Source="/ResourceDictionary/CustomComboBox.xaml"/>
-                <ResourceDictionary Source="/ResourceDictionary/CustomTextBox.xaml"/>
-                <ResourceDictionary Source="/ResourceDictionary/CustomGridView.xaml"/>
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomGridView.xaml"/>
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomTextbox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -24,6 +24,10 @@
             <GradientStop Color="#FFFD8290" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
+
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo x:Name="taskbarItem"/>
+    </Window.TaskbarItemInfo>
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Height="20" Background="#FFF7B9BE">
@@ -64,40 +68,40 @@
                 helper:ImageLoader.ClickedImage="Images/Buttons/btn-Clear.png"
                 Style="{DynamicResource ResourceKey=ToolbarButton}" />
         <Grid Margin="0,149,0,0">
-        <Image HorizontalAlignment="Right" Margin="0,0,0,20" VerticalAlignment="Bottom" Height="300" OpacityMask="Black" Source="Images/Background/Background.png"/>
-        
-        <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,0,0,20" VerticalAlignment="Stretch" BorderThickness="0" ClipToBounds="True">
-            <ListView.Background>
-                <SolidColorBrush Color="White" Opacity="0.4"/>
-            </ListView.Background>
-            <ListView.View>
+            <Image HorizontalAlignment="Right" Margin="0,0,0,20" VerticalAlignment="Bottom" Height="300" OpacityMask="Black" Source="Images/Background/Background.png"/>
+
+            <ListView Name="lvFiles" HorizontalAlignment="Stretch" Margin="0,0,0,20" VerticalAlignment="Stretch" BorderThickness="0" ClipToBounds="True">
+                <ListView.Background>
+                    <SolidColorBrush Color="White" Opacity="0.4"/>
+                </ListView.Background>
+                <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{DynamicResource CustomGridViewHeader}">
-                    <GridViewColumn Width="150">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Tag="Name" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Name</GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="Transparent">
-                                    <Image Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Source="{Binding Icon}"/>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="90" DisplayMemberBinding="{Binding SizeInString}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Tag="Size" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Size</GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Type}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Tag="Type" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Type</GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                        <GridViewColumn Width="150">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="Name" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Name</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Background="Transparent">
+                                        <Image Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" Source="{Binding Icon}"/>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="90" DisplayMemberBinding="{Binding SizeInString}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="Size" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Size</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding Type}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="Type" Click="lvFilesColumnHeader_Click" HorizontalContentAlignment="Left">Type</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Bottom" Height="20" Background="#FFFFCCCC">
