@@ -184,7 +184,7 @@ namespace CMF_Editor
         {
             Image_Compressor imageConpressor = new Image_Compressor();
             imageConpressor.Owner = this;
-            imageConpressor.Show();
+            imageConpressor.ShowDialog();
         }
         private void buttonImageCompressor_Click(object sender, RoutedEventArgs e)
         {
