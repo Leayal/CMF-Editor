@@ -21,7 +21,6 @@ namespace CMF_Editor
     public partial class Extraction : Window
     {
         private Leayal.Closers.CMF.CMFArchive myArchive;
-
         public Extraction(Leayal.Closers.CMF.CMFArchive archive)
         {
             this.myArchive = archive;
@@ -47,7 +46,7 @@ namespace CMF_Editor
             this.DialogResult = false;
         }
 
-        private void buttonOK_ClickOld(object sender, RoutedEventArgs e)
+        private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxDestination.Text))
             {
@@ -55,31 +54,6 @@ namespace CMF_Editor
                 return;
             }
 
-            string outputFolder;
-            if (this.checkBoxMisc1.IsChecked == true)
-            {
-                System.IO.FileStream fs = this.myArchive.BaseStream as System.IO.FileStream;
-                if (fs != null)
-                    outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), System.IO.Path.GetFileNameWithoutExtension(fs.Name) + "_files");
-                else
-                    outputFolder = System.IO.Path.Combine(System.IO.Path.GetFullPath(textBoxDestination.Text), "OutputFolder_files");
-            }
-            else
-                outputFolder = System.IO.Path.GetFullPath(textBoxDestination.Text);
-            try
-            {
-                System.IO.Directory.CreateDirectory(outputFolder);
-                this.myArchive.ExtractAllEntries(outputFolder);
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void buttonOK_Click(object sender, RoutedEventArgs e)
-        {
             this.OptionUpdateMode = this.GetUpdateMode();
             this.OptionOverwriteMode = this.GetOverwriteMode();
             this.OptionFilePathType = this.GetFilePathType();
@@ -90,6 +64,7 @@ namespace CMF_Editor
         }
         #endregion
 
+        public string DestinationPath { get => this.textBoxDestination.Text; set => this.textBoxDestination.Text = value; }
         public UpdateMode OptionUpdateMode { get; private set; }
         public OverwriteMode OptionOverwriteMode { get; private set; }
         public FilePathType OptionFilePathType { get; private set; }

@@ -71,6 +71,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes\ByteSize.cs" />
     <Compile Include="Classes\CMFFile.cs" />
+    <Compile Include="Classes\ExtractionOptions.cs" />
     <Compile Include="Classes\File.cs" />
     <Compile Include="Classes\InverseBooleanConverter.cs" />
     <Compile Include="Classes\IWin32Window.cs" />
@@ -78,6 +79,8 @@
     <Compile Include="Extraction.xaml.cs">
       <DependentUpon>Extraction.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AppInfo.cs" />
+    <Compile Include="Helper\Shell.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Progress Dialog.xaml.cs">
       <DependentUpon>Progress Dialog.xaml</DependentUpon>

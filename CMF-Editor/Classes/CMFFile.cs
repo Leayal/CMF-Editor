@@ -9,7 +9,7 @@ namespace CMF_Editor.Classes
     /// <summary>
     /// Wrapper for CMFArchive
     /// </summary>
-    class CMFFile : IDisposable
+    public class CMFFile : IDisposable
     {
         private CMFArchive archive;
         public CMFArchive Archive => this.archive;

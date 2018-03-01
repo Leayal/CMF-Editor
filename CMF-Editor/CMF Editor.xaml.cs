@@ -125,21 +125,62 @@ namespace CMF_Editor
 
         public void openExtraction()
         {
-            Extraction extraction = new Extraction(this.archive.Archive);
-            extraction.Owner = this;
-            if (extraction.ShowDialog() == true)
+            if (lvFiles.SelectedItems.Count == 1)
             {
-                //ProgressDialog asd = new ProgressDialog(new ExtractionOptions()
-                //{
-                //    OptionContinueOnError = (extraction.OptionContinueOnError == true),
-                //    OptionFilePathType = extraction.OptionFilePathType,
-                //    OptionDisplayFileAfterExtract = (extraction.OptionDisplayFileAfterExtract == true),
-                //    OptionToSubfolder = (extraction.OptionToSubfolder == true),
-                //    OptionOverwriteMode = extraction.OptionOverwriteMode,
-                //    OptionUpdateMode = extraction.OptionUpdateMode,
-                //}, this.taskbarItem);
-                //asd.Owner = this;
-                //asd.ShowDialog();
+                Classes.File filepointer = (Classes.File)lvFiles.SelectedItem;
+                SaveFileDialog sfd = new SaveFileDialog();
+                sfd.Title = $"Select location to save '{filepointer.Name}'";
+                sfd.RestoreDirectory = true;
+                sfd.OverwritePrompt = true;
+                sfd.DefaultExt = System.IO.Path.GetExtension(filepointer.Name);
+                if (!string.IsNullOrEmpty(sfd.DefaultExt))
+                    if (sfd.DefaultExt.StartsWith("."))
+                        sfd.DefaultExt = sfd.DefaultExt.Remove(0, 1);
+                sfd.Filter = $"{sfd.DefaultExt} Files|*.{sfd.DefaultExt}";
+                sfd.FileName = filepointer.Name;
+                if (sfd.ShowDialog(this) == true)
+                {
+                    // No progressbar ???
+                    try
+                    {
+                        this.archive.ExtractEntry(this.archive[filepointer.Name], sfd.FileName);
+                        if (MessageBox.Show(this, "Do you want to show the file?", "Prompt", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            Helper.Shell.ShowPathInExplorer(sfd.FileName, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(this, ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                sfd = null;
+            }
+            else
+            {
+                Extraction extraction = new Extraction(this.archive.Archive);
+                extraction.Owner = this;
+                if (extraction.ShowDialog() == true)
+                {
+                    Progress_Dialog dialog = new Progress_Dialog(new ExtractionParams()
+                    {
+                        Archive = this.archive,
+                        ExtractionOptions = new ExtractionOptions()
+                        {
+                            OptionContinueOnError = (extraction.OptionContinueOnError == true),
+                            OptionFilePathType = extraction.OptionFilePathType,
+                            OptionDisplayFileAfterExtract = (extraction.OptionDisplayFileAfterExtract == true),
+                            OptionToSubfolder = (extraction.OptionToSubfolder == true),
+                            OptionOverwriteMode = extraction.OptionOverwriteMode,
+                            OptionUpdateMode = extraction.OptionUpdateMode,
+                        },
+                        Destination = extraction.DestinationPath,
+                        SelectedFiles = lvFiles.SelectedItems
+                    }, this.taskbarItem)
+                    {
+                        Owner = this
+                    };
+                    dialog.ShowDialog();
+                    dialog = null;
+                }
             }
         }
 
