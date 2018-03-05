@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CMF_Editor"
         mc:Ignorable="d"
-        Title="Extracting from ..." Height="291.333" Width="300">
+        Title="Extracting from ..." Height="291.333" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
         <ResourceDictionary>

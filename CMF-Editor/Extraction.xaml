@@ -6,7 +6,7 @@
         xmlns:classes="clr-namespace:CMF_Editor.Classes"
         xmlns:local="clr-namespace:CMF_Editor"
         mc:Ignorable="d"
-        Title="Extraction path and options" Height="355.667" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="Extraction path and options" Height="355.667" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <Grid>
         <Label Content="Destination path (will be created if does not exist)" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxDestination" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="394" VerticalContentAlignment="Center"/>

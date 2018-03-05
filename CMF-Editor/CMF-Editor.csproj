@@ -81,6 +81,9 @@
     </Compile>
     <Compile Include="Helper\AppInfo.cs" />
     <Compile Include="Helper\Shell.cs" />
+    <Compile Include="Overwrite or Rename.xaml.cs">
+      <DependentUpon>Overwrite or Rename.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Progress Dialog.xaml.cs">
       <DependentUpon>Progress Dialog.xaml</DependentUpon>
@@ -107,6 +110,10 @@
       <DependentUpon>CMF Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Overwrite or Rename.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Progress Dialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

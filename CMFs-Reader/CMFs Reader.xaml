@@ -6,14 +6,17 @@
         xmlns:local="clr-namespace:CMFs_Reader"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomGridView.xaml"/>
+                <ResourceDictionary Source="/SharedResources;component/Controls/CustomTextbox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    
     <Grid>
         
     </Grid>

@@ -4,14 +4,6 @@
              xmlns:local="clr-namespace:CMFs_Reader"
              StartupUri="CMFs Reader.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/SharedResources;component/Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="/SharedResources;component/Controls/CustomComboBox.xaml"/>
-                <ResourceDictionary Source="/SharedResources;component/Controls/CustomGridView.xaml"/>
-                <ResourceDictionary Source="/SharedResources;component/Controls/CustomLabel.xaml"/>
-                <ResourceDictionary Source="/SharedResources;component/Controls/CustomTextbox.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+
     </Application.Resources>
 </Application>
